@@ -75,7 +75,7 @@ class PokemonList {
     console.log("Llista de Pokemons:");
     for (let i = 0; i < this._pokemons.length; i++) { // Es recorren tots els Pokémons de la llista
       let pokemon = this._pokemons[i];
-      console.log("Nom:" + pokemon.name + "Tipus:" + pokemon.types[0] + "Imatge:" + pokemon.sprites);
+      console.log(" Nom:" + pokemon.name + "  Tipus:" + pokemon.types[0] + "  Imatge:" + pokemon.sprites);
   }
 }
 
@@ -148,7 +148,6 @@ function getMostCommonType(pokemonList) {
   return tipusMesComu; // S'acaba retornant el tipus més repetit
 }
 
-//console.log("El tipus més comú és:", getMostCommonType(myPokemonList));
 
 //PAS 6:
 // 6. Uso de map y filter para obtener Pokémon fuertes por ataque
@@ -234,28 +233,30 @@ const myPokemonList = new PokemonList();
 myPokemonList.addPokemon(pikachu);
 
 // Ejemplo 2: añadir múltiples Pokémons
-myPokemonList.addMultiplePokemons(pikachu, bulbasaur, charmander);
+myPokemonList.addMultiplePokemons(bulbasaur, charmander);
 
 // Ejemplo 3: eliminar un Pokémon
-myPokemonList.removePokemon(1); // elimina Bulbasaur
+myPokemonList.removePokemon(1); // elimina Bulbasaur (ID: 1), Pikachu es el ID25 i Charmander el ID4
 
 // Ejemplo 4: eliminar un Pokémon
-myPokemonList.removePokemon(999); // No existe
+myPokemonList.removePokemon(10); // No existe
 
 // Ejemplo 5: mostrar la lista de Pokémons
 myPokemonList.showList();
 
 // Ejemplo 6: obtener Pokémon por rango de peso
-const pokemonsPeso = myPokemonList.getPokemonsByWeightRange(50, 70);
-console.log(pokemonsPeso);
+const pokemonsPes = myPokemonList
+  .getPokemonsByWeightRange(40, 70) // filtra segons el pes
+  .map(pokemon => pokemon.name);    //que només doni el nom del pokemon no tota la línea de dades
+console.log("Pokémons amb pes entre 40 y 70:", pokemonsPes);
 
 // Ejemplo 7: ordenar Pokémon por experiencia base
 myPokemonList.sortPokemonsByBaseExperience();
 myPokemonList.showList();
 
 // Ejemplo 8: F. Recursiva para buscar un Pokémon por ID
-const trobat = findPokemonById(myPokemonList, 25);
-console.log(trobat);
+const busca = findPokemonById(myPokemonList, 25);
+console.log(busca);
 
 // Ejemplo 9: Tipo más común
-console.log("El tipo más común es:", getMostCommonType(myPokemonList));
+console.log("El tipus més comú és:", getMostCommonType(myPokemonList));
