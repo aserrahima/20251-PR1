@@ -150,7 +150,13 @@ console.log("El tipus més comú és:", getMostCommonType(myPokemonList));
 //PAS 6:
 // 6. Uso de map y filter para obtener Pokémon fuertes por ataque
 function getStrongPokemons(pokemons, minAttack) {
-
+  const filtrats = pokemons.filter(pokemon => {   // Filtrar només els Pokémon que tinguin atac més gran que (>=) minAttack
+    const atac = pokemon.stats.find(stat => stat.name === "attack").value; // es busca l'estadística "attack" del Pokémon
+    return atac >= minAttack; // Només es guarden els pokemons que ho compleixen (els que tenen atac >= minAttack)
+  });
+ 
+  const noms = filtrats.map(pokemon => pokemon.name); // COm a resultat s'obtenen només els noms dels Pokémon filtrats
+  return noms; // Retorna l'array amb noms
 }
 
 
