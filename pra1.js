@@ -84,7 +84,7 @@ class PokemonList {
   // Añadir múltiples Pokémon a la vez
   addMultiplePokemons = (...pokemons) => {
       this.addPokemon(pokemon); // es fa servir el mètode ja creat abans
-  });
+  };
 };
 
   // Obtener Pokémon dentro de un rango de peso
