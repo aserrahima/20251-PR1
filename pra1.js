@@ -72,39 +72,82 @@ class PokemonList {
   showList() {
     console.log("Llista de Pokemons:");
     for (let i = 0; i < pokemons.length; i++) { // Es recorren tots els Pokémons de la llista
-      let pokemon = pokemons[i];
+      let pokemon = this._pokemons[i];
       console.log("Nom:" + pokemon.name + "Tipus:" + pokemon.types[0] + "Imatge:" + pokemon.sprites);
   }
 }
 
+
+  //PAS 3:
   // 3. Funciones flecha
 
   // Añadir múltiples Pokémon a la vez
   addMultiplePokemons = (...pokemons) => {
-  
+      this.addPokemon(pokemon); // es fa servir el mètode ja creat abans
+  });
 };
 
   // Obtener Pokémon dentro de un rango de peso
   getPokemonsByWeightRange = (minWeight, maxWeight) => {
-
-  };
+    return this._pokemons.filter(pokemon =>
+      pokemon.weight >= minWeight && pokemon.weight <= maxWeight
+  );
+};
 
   // Ordenar Pokémon por experiencia base
   sortPokemonsByBaseExperience = () => {
+    this._pokemons.sort((a, b) => a.baseExperience - b.baseExperience); //ordre de menor a major
+    console.log("Pokemons ordenats segons l'experiència base.");
+};
 
-  };
-}
-
+//PAS 4:
 // 4. Función recursiva para buscar un Pokémon por ID
-function findPokemonById(pokemonList, id, index = 0) {
+function findPokemonById(pokemonList, id, index = 0) { 
+  
+  if (index >= pokemonList._pokemons.length) { // Cas base: si arribem al final i no s'ha trobat
+    return null;
+  }
 
+  if (pokemonList._pokemons[index].id === id) {   // Si el Pokémon a aquesta posició té l'ID buscat
+    return pokemonList._pokemons[index];
+  }
+
+  return findPokemonById(pokemonList, id, index + 1); // Crida recursiva avançant a la següent posició
 }
 
+//PAS 5:
 // 5. Uso de reduce para encontrar el tipo más común
 function getMostCommonType(pokemonList) {
+  
+  const tipusComptats = pokemonList._pokemons.reduce((contador, pokemon) => { // Objecte per comptar quants cops apareix cada tipus
+    
+    pokemon.types.forEach(type => { // Cada pokemo pot tenir un tipus o més
+      if (contador[type]) { // Si ja existeix aquest tipus al comptador se suma
+        contador[type] = contador[type] + 1;
+      } else { // Si no existeix comença a 1
+        contador[type] = 1;
+      }
+    });
 
+    return contador; // Retornem l'objecte acumulador
+  }, {}); // {} per començar buit
+
+  // Cal també buscar quin tipus té el número més alt
+  let tipusMesComu = null;
+  let numeroMesAlt = 0;
+  for (let type in tipusComptats) { // Es recorre cada tipus del comptador
+    if (tipusComptats[type] > numeroMesAlt) {
+      numeroMesAlt = tipusComptats[type];
+      tipusMesComu = type;
+    }
+  }
+
+  return tipusMesComu; // S'acaba retornant el tipus més repetit
 }
 
+console.log("El tipus més comú és:", getMostCommonType(myPokemonList));
+
+//PAS 6:
 // 6. Uso de map y filter para obtener Pokémon fuertes por ataque
 function getStrongPokemons(pokemons, minAttack) {
 
