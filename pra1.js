@@ -1,33 +1,81 @@
+// PAS 1:
 // 1. Creación de la clase Pokemon, que representa a un objeto Pokemon
 class Pokemon {
   constructor({ id, name, description, height, weight, baseExperience, types, sprites, stats }) {
-
+    this._id = id; // identificador únic
+    this._name = name; // nom del Pokémon
+    this._description = description;
+    this._height = height; //alçada
+    this._weight = weight; //pes
+    this._baseExperience = baseExperience; //experiència base
+    this._abilities = abilities; // llista d'habilitats que té el Pokémon (bromista, clorofil·la, còlera...)
+    this._types = types; //Llista de tipus que té el Pokémon (aigua, foc, planta...)
+    this._sprites = sprites; //URL de la imatge oficial (sprites.other.oficial-artwork.front_default).
+    this._stats = stats; //Array amb les estadístiques (HP, atac, defensa, velocitat, etc.).
   }
 
-  // === Getters y Setters ===
-  
+  // ======== Getters ======== //
+  get id() { return this._id; }
+  get name() { return this._name; }
+  get description() { return this._description; }
+  get height() { return this._height; }
+  get weight() { return this._weight; }
+  get baseExperience() { return this._baseExperience; }
+  get abilities() { return this._abilities; }
+  get types() { return this._types; }
+  get sprites() { return this._sprites; }
+  get stats() { return this._stats; }
+
+  // ======== Setters ======== //
+  set name(newName) { this._name = newName; }
+  set description(newDescription) { this._description = newDescription; }
+  set height(newHeight) { this._height = newHeight; }
+  set weight(newWeight) { this._weight = newWeight; }
+  set baseExperience(newExp) { this._baseExperience = newExp; }
+  set abilities(newAbilities) { this._abilities = newAbilities; }
+  set types(newTypes) { this._types = newTypes; }
+  set sprites(newSprites) { this._sprites = newSprites; }
+  set stats(newStats) { this._stats = newStats; }
 }
 
+
+//PAS 2:
 // 2. Creación de la clase PokemonList
 class PokemonList {
   constructor() {
-
+    this._pokemons = []; // Array per anar guardant els Pokemons
   }
 
   // Añadir un Pokémon a la lista
   addPokemon(pokemon) {
-    
+    if (pokemon instanceof Pokemon) {
+      this._pokemons.push(pokemon);
+    } else {
+      console.error("Només es poden afegir objectes de la classe Pokemon.");
+    }
   }
 
   // Eliminar un Pokémon de la lista por ID
   removePokemon(pokemonId) {
+    const index = this._pokemons.findIndex(poke => poke.id === pokemonId); // Busca l'índex (és a dir, la posició) del primer element a l'array _pokemons, on la propietat id del Pokémon és estrictament igual (===) a pokemonId. Si el troba, retorna l'índex, sino -1 si no existeix. 
+    if (index !== -1) { // Comprova si l'índex trobat és correcte (és a dir, s'ha trobat el Pokemon)
+      this._pokemons.splice(index, 1); // Elimina un element a l'array _pokemons a la posició "index" (per tant està modificant l'array original)
 
+      // Mostra un missatge a la pantalla
+      console.log(`Pokemon amb ID ${pokemonId} eliminat correctament.`); // Correcte: indicant que s'ha eliminat el Pokemon amb aquell ID
+    } else {
+      console.log(`No s'ha trobat cap pokemon amb ID ${pokemonId}.`); // Incorrecte: avisa que no s'ha trobat
+    }
   }
 
   // Mostrar la lista de Pokémon (nombre, tipo principal e imagen)
   showList() {
-
+    console.log("Llista de Pokemons:");
+    for (let i = 0; i < pokemons.length; i++) { // Es recorren tots els Pokémons de la llista
+      let pokemon = pokemons[i];
+      console.log("Nom:" + pokemon.name + "Tipus:" + pokemon.types[0] + "Imatge:" + pokemon.sprites);
   }
+}
 
   // 3. Funciones flecha
 
